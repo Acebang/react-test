@@ -1,17 +1,85 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+/*   test1   */
+// function tick() {
+//   const element = (
+//     <div>
+//       <h1>Hello, world!</h1>
+//       <h2>It is {new Date().toLocaleTimeString()}.</h2>
+//     </div>
+//   );
+//   ReactDOM.render(element, document.getElementById('root'));
+// }
+
+// var id = setInterval(tick, 1000);
+
+// setTimeout(() => {
+//   clearInterval(id);
+// }, 3000);
+
+
+
+/*   test2   */
+// function Title(props){
+//   return (
+//     <h3>{props.id}</h3>
+//   );
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <Title name="test title" id="test id" />
+//       <h2>It is {new Date().toLocaleTimeString()}.</h2>
+//     </div>
+//   );
+// }
+
+// ReactDOM.render(
+//   <App />
+//   , document.getElementById('root')
+// );
+
+
+
+/*   test3   */
+class Clock extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = props;
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState((state,props) => ({
+      date: new Date(),
+      name: state.name + props.name2
+    }));
+  }
+
+  render(){
+    return (
+      <div>
+        <h1>{this.state.name}</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Clock date={new Date()} name="1" name2="2"/>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
